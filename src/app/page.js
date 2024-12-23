@@ -5,7 +5,7 @@ export default function MainContent() {
     return (
         <main>
             <div>
-                <img className='bg' src="/img/bgb.png" alt='backup-background' z-index="-2"/>
+                <img className='bg' src="/img/bgb.gif" alt='backup-background' z-index="-2"/>
                 <video className='video' autoPlay loop muted playsInline preload='auto'>
                     <source src="/img/background_video.mp4" type='video/mp4' />
                 </video>
