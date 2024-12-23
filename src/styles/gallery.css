@@ -1,0 +1,54 @@
+/* Gallery.css */
+
+.gallery {
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.gallery h1 {
+    color: #ffffff;
+    font-size: 40px;
+    text-align: center;
+}
+
+.gallery p {
+    color: #cccccc;
+    font-size: 20px;
+    font-family: "Quicksand", serif;
+    text-align: center; 
+    margin: 0;
+    padding: 2px;
+}
+
+#instafeed-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+#instafeed-container a img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 5px;
+    transition: transform 0.3s;
+}
+
+#instafeed-container a img:hover {
+    transform: scale(1.1);
+}
+
+/* phony */
+@media screen and (max-width: 768px) {
+    .gallery {
+        width: 95%;
+    }
+
+    #instafeed-container a img {
+        width: 100px;
+        height: 100px;
+    }
+}
