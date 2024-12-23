@@ -27,6 +27,14 @@
     text-decoration: none;
 }
 
+.contact .call {
+    display: none;
+}
+
+.contact .call2 {
+    display: block;
+}
+
 .contact iframe{
     width: 100%;
     height: 60vh;
@@ -37,5 +45,12 @@
 @media screen and (max-width: 768px) {
     .contact{
         width: 95%;
+    }
+
+    .contact .call {
+        display: block;
+    }
+    .contact .call2 {
+        display: none;
     }
 }

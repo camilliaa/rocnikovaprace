@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import '/src/styles/page.css'; 
-import BGVid from '/src/img/background_video.mp4';
 
 export default function MainContent() {
     return (
@@ -8,7 +7,7 @@ export default function MainContent() {
             <div>
                 <img className='bg' src="/img/bgb.png" alt='backup-background' z-index="-2"/>
                 <video className='video' autoPlay loop muted playsInline preload='auto'>
-                    <source src={BGVid} type='video/mp4' />
+                    <source src="/img/background_video.mp4" type='video/mp4' />
                 </video>
             </div>
             <div className="introduction">
@@ -16,7 +15,7 @@ export default function MainContent() {
                 <p>tatér od roku 2013</p>
                 <p>tetování Znojmo & Brno</p>
                 <Link href='/booking' className="booking-button">
-                Booking
+                    Booking
                 </Link>
             </div>
     </main>

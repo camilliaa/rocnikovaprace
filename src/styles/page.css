@@ -17,7 +17,7 @@ video, .bg {
     flex-direction: column;
     justify-content: center;
     height: 95vh;
-    padding-left: 15vw;
+    padding-left: 16vw;
 }
 
 .introduction h1 {
@@ -36,6 +36,7 @@ video, .bg {
     margin: 0;
     text-decoration: none;
     font-family: "Quicksand", serif;
+    padding-left: 2px;
 }
 
 
