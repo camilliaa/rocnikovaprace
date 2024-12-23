@@ -27,12 +27,12 @@
     text-decoration: none;
 }
 
-.contact .call {
-    display: none;
+.contact .phone {
+    display: hidden;
 }
 
-.contact .call2 {
-    display: block;
+.contact .desktop {
+    display: visible;
 }
 
 .contact iframe{
@@ -47,10 +47,10 @@
         width: 95%;
     }
 
-    .contact .call {
-        display: block;
+    .contact .phone {
+        display: visible;
     }
-    .contact .call2 {
-        display: none;
+    .contact .desktop {
+        display: hidden;
     }
 }

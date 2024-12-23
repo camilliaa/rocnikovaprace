@@ -7,8 +7,8 @@ export default function Contact() {
             <p>Email: rezotattoo@gmail.com</p>
             <p><a href="https://www.instagram.com/direzodanek/" target='_blank' rel="noopener noreferrer">Instagram: @direzodanek</a></p>
             <p><a href="https://www.facebook.com/didanektattooer" target='_blank' rel="noopener noreferrer">Facebook: Dí ''Rezo'' Daněk tattooer</a></p>
-            <p className="call"><a href="tel:+420731810589">Telefon: +420 731 810 589</a></p>
-            <p className="call2">Telefon: +420 731 810 589</p>
+            <p className="phone"><a href="tel:+420731810589">Telefon: +420 731 810 589</a></p>
+            <p className="desktop">Telefon: +420 731 810 589</p>
             <p>ičo: 06125263</p>
             <h2>Kde mě najdete</h2>
             <iframe 
