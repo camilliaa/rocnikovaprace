@@ -18,6 +18,6 @@ export default function MainContent() {
                     Booking
                 </Link>
             </div>
-    </main>
-);
+        </main>
+    );
 }
