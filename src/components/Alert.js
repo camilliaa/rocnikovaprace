@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Alert.css'; 
+import '/src/styles/Alert.css'; 
 
 function Alert({ message, onClose }) {
     const [visible, setVisible] = useState(true);
