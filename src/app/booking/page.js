@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Alert from '/src/components/Alert.js';
-import '/src/styles/booking.css'; 
+import '@/src/styles/booking.css'; 
 
 export default function Booking() {
     // proměnné pro hodnoty z formulářů

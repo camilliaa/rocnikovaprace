@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import '/src/styles/header.css'; 
+import '@/src/styles/header.css'; 
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

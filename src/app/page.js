@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import '/src/styles/page.css'; 
+import '@/src/styles/page.css'; 
 import BGVid from '../img/background_video.mp4';
 
 export default function MainContent() {
