@@ -28,7 +28,7 @@
 }
 
 .contact .phone {
-    display: hidden;
+    display: none;
 }
 
 .contact .desktop {
@@ -51,6 +51,6 @@
         display: visible;
     }
     .contact .desktop {
-        display: hidden;
+        display: none;
     }
 }
