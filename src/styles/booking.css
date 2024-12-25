@@ -51,9 +51,15 @@
 
 .booking input[type="text"]::placeholder,
 .booking input[type="email"]::placeholder,
-.booking input[type="tel"]::placeholder,
+.booking input[type="tel"]::placeholder {
+    color: #999; 
+    padding-left: 3px;
+}
+
 .booking textarea::placeholder {
     color: #999; 
+    padding-left: 3px;
+    padding-top: 2px;
 }
 
 .hidden-file {
