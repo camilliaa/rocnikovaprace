@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 import Instafeed from 'instafeed.js';
-import '/src/styles/gallery.css';
+import './gallery.css';
 
 export default function Gallery() {
     useEffect(() => {
