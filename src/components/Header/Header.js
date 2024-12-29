@@ -35,6 +35,7 @@ export default function Header() {
         <li><Link href="/gallery" onClick={toggleMenu}>Galerie</Link></li>
         <li><Link href="/booking" onClick={toggleMenu}>Booking</Link></li>
         <li><Link href="/contact" onClick={toggleMenu}>Kontakt</Link></li>
+        <li><Link href="/login" onClick={toggleMenu}>Přihlášení</Link></li>
       </ul>
     </nav>
   );

@@ -1,0 +1,29 @@
+/*Login*/
+
+.login {
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.login h1 {
+    color: #ffffff;
+    font-size: 40px;
+    text-align: center;
+}
+
+.login p {
+    color: #cccccc;
+    font-size: 20px;
+    font-family: "Quicksand", serif;
+    text-align: center; 
+    margin: 0;
+    padding: 2px;
+}
+
+/* phony */
+@media screen and (max-width: 768px) {
+    .login {
+        width: 95%;
+    }
+}
