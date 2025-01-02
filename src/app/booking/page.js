@@ -42,7 +42,7 @@ export default function Booking() {
         }
 
         if (file.size > maxSizeMB * 1024 * 1024) {
-            showCustomAlert(`Maximální velikost souboru je ${maxSizeMB} MB!`);
+            showCustomAlert('Maximální velikost souboru je ${maxSizeMB} MB!');
             return null;
         }
 
@@ -117,41 +117,31 @@ export default function Booking() {
     };
 
     // odeslání formuláře
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // když něco chybí
-        if (!name) {
-            showCustomAlert("Vyplňte prosím své jméno.");
-            return;
-        }
-        if (!email) {
-            showCustomAlert("Vyplňte prosím svůj e-mail.");
-            return;
-        }
-        if (!phone) {
-            showCustomAlert("Vyplňte prosím své telefonní číslo.");
-            return;
-        }
-        if (!placement) {
-            showCustomAlert("Vyplňte prosím umístění tetování.");
-            return;
-        }
-        if (!description) {
-            showCustomAlert("Popis tetování nesmí být prázdný.");
+        if (!name || !email || !phone || !placement || !description) {
+            showCustomAlert("Vyplňte prosím všechna povinná pole.");
             return;
         }
     
-        // když je to ok
-        console.log("Formulář je validní a může být odeslán.");
-
-        // semka přijde posílání na mail
-
-
+        try {
+            const response = await fetch('/api/sendMail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, phone, placement, description }),
+            });
+    
+            if (response.ok) {
+                showCustomAlert("Formulář byl úspěšně odeslán.");
+            } else {
+                showCustomAlert("Nastala chyba při odesílání formuláře.");
+            }
+        } catch (error) {
+            console.error(error);
+            showCustomAlert("Nastala chyba při komunikaci se serverem.");
+        }
     };
-    
-
-
 
     // htmlko
     return (
