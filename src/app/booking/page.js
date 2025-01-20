@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from 'react';
 import Alert from '/src/components/Alert/Alert.js';
-import './booking.css'; 
+import './booking.css';
 
 export default function Booking() {
     // proměnné pro hodnoty z formulářů
-    const [name, setName] = useState('');  
-    const [email, setEmail] = useState('');  
-    const [phone, setPhone] = useState('');  
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [placement, setPlacement] = useState('');
     const [description, setDescription] = useState("");
 
@@ -16,7 +16,7 @@ export default function Booking() {
     const [referenceFiles, setReferenceFiles] = useState([null, null, null, null]);
 
     // proměnné pro zobrazení alertu
-    const [showAlert, setShowAlert] = useState(false); 
+    const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
 
     // proměnná pro max. délku
@@ -42,25 +42,41 @@ export default function Booking() {
         }
 
         if (file.size > maxSizeMB * 1024 * 1024) {
-            showCustomAlert('Maximální velikost souboru je ${maxSizeMB} MB!');
+            showCustomAlert(`Maximální velikost souboru je ${maxSizeMB} MB!`);
             return null;
         }
 
         return file;
     };
 
-    const handlePlacementFileChange = (e) => {
+
+    const handlePlacementFileChange = async (e) => {
         const file = validateFile(e.target.files[0]);
-        setPlacementFile(file ? file.name : null);
+        if (file) {
+            console.log('setting file', file);
+            const filePath = await uploadFile(file);
+            console.log('asisi', filePath);
+            setPlacementFile(filePath);
+        }
     };
 
-    const handleReferenceFileChange = (index, e) => {
-        const file = validateFile(e.target.files[0]);
-        setReferenceFiles((prevFiles) => {
-            const newFiles = [...prevFiles];
-            newFiles[index] = file ? file.name : null;
-            return newFiles;
-        });
+    const handleReferenceFileChange = async (index, e) => {
+        const file = e.target.files[0]; 
+        if (file) {
+            try {
+                const filePath = await uploadFile(file);
+
+                if (filePath) {
+                    setReferenceFiles((prevFiles) => {
+                        const newFiles = [...prevFiles];
+                        newFiles[index] = filePath;  
+                        return newFiles;
+                    });
+                }
+            } catch (error) {
+                console.error("Chyba při uploadu souboru", error);
+            }
+        }
     };
 
     // hodnoty ve formuláři a jejich validace
@@ -87,7 +103,7 @@ export default function Booking() {
         if (value.length <= 50 && !emailPattern.test(value)) {
             showCustomAlert("Zadejte platnou e-mailovou adresu.");
         }
-        
+
         setEmail(value);
     };
 
@@ -116,22 +132,49 @@ export default function Booking() {
         }
     };
 
+    // upload souboru
+    const uploadFile = async (file) => {
+        if (!file) return null;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data.publicFileID; 
+            } else {
+                throw new Error('Nahrání souboru se nezdařilo.');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Chyba při nahrávání souboru.');
+            return null;
+        }
+    };
+
     // odeslání formuláře
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (!name || !email || !phone || !placement || !description) {
             showCustomAlert("Vyplňte prosím všechna povinná pole.");
             return;
         }
-    
+
         try {
+            console.log('placementFile', placementFile);
             const response = await fetch('/api/sendMail', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, phone, placement, description }),
+                body: JSON.stringify({ name, email, phone, placement, description, placementFile, referenceFiles }),
             });
-    
+
             if (response.ok) {
                 showCustomAlert("Formulář byl úspěšně odeslán.");
             } else {
@@ -150,59 +193,60 @@ export default function Booking() {
             {showAlert && <Alert message={alertMessage} onClose={() => setShowAlert(false)} />}
             <div className="form-group">
                 <label htmlFor="name">Jméno *</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    placeholder="Vaše jméno" 
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Vaše jméno"
                     required
-                    value={name} 
+                    value={name}
                     onChange={handleNameChange}
                 />
             </div>
             <div className="form-group">
                 <label htmlFor="email">E-mail *</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="Váš e-mail" 
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Váš e-mail"
                     required
-                    value={email} 
-                    onChange={handleEmailChange} 
+                    value={email}
+                    onChange={handleEmailChange}
                 />
             </div>
             <div className="form-group">
                 <label htmlFor="phone">Telefon *</label>
                 <input
-                    type="tel" 
-                    id="phone" 
-                    placeholder="Vaše telefonní číslo" 
+                    type="tel"
+                    id="phone"
+                    placeholder="Vaše telefonní číslo"
                     required
-                    value={phone} 
-                    onChange={handlePhoneChange} 
+                    value={phone}
+                    onChange={handlePhoneChange}
                 />
             </div>
             <div className="form-group">
                 <label htmlFor="placement">Umístění tetování *</label>
                 <input
-                    type="text" 
-                    id="placement" 
-                    placeholder="stehno, předloktí, kotník..." 
+                    type="text"
+                    id="placement"
+                    placeholder="stehno, předloktí, kotník..."
                     required
-                    value={placement} 
-                    onChange={handlePlacementChange} 
+                    value={placement}
+                    onChange={handlePlacementChange}
                 />
             </div>
 
+            {/* fotografie umístění */}
             <div className="form-group">
                 <label htmlFor="placement-photo">Fotografie umístění</label>
                 <div className="file-input">
                     <label htmlFor="placement-photo" className="custom-button">Vyberte soubor</label>
-                    <input 
-                        type="file" 
-                        id="placement-photo" 
-                        className="hidden-file" 
-                        accept=".jpg, .jpeg, .png, .webp" 
-                        onChange={handlePlacementFileChange} 
+                    <input
+                        type="file"
+                        id="placement-photo"
+                        className="hidden-file"
+                        accept=".jpg, .jpeg, .png, .webp"
+                        onChange={handlePlacementFileChange}
                     />
                     <span className="file-description">
                         {placementFile || `(max. ${maxSizeMB}MB, .jpg, .png, .webp)`}
@@ -212,12 +256,12 @@ export default function Booking() {
 
             <div className="form-group">
                 <label htmlFor="description">Popis *</label>
-                <textarea 
-                    id="description" 
-                    placeholder="Popište Vaši představu o motivu, barvách, kompozici..." 
+                <textarea
+                    id="description"
+                    placeholder="Popište Vaši představu o motivu, barvách, kompozici..."
                     required
-                    rows="4" 
-                    maxLength={maxDescriptionLength} 
+                    rows="4"
+                    maxLength={maxDescriptionLength}
                     value={description}
                     onChange={handleDescriptionChange}
                 ></textarea>
@@ -226,23 +270,27 @@ export default function Booking() {
                 </div>
             </div>
 
+            {/* fotografie reference */}
             <div className="reference-photos">
                 {referenceFiles.map((fileName, index) => (
                     <div className="file-input" key={index}>
                         <label htmlFor={`file-upload-${index}`} className="custom-button">Vyberte soubor</label>
-                        <input 
-                            type="file" 
-                            id={`file-upload-${index}`} 
-                            className="hidden-file" 
-                            accept=".jpg, .jpeg, .png, .webp" 
-                            onChange={(e) => handleReferenceFileChange(index, e)} 
+
+                        <input
+                            type="file"
+                            id={`file-upload-${index}`}
+                            className="hidden-file"
+                            accept=".jpg, .jpeg, .png, .webp"
+                            onChange={(e) => handleReferenceFileChange(index, e)}
                         />
+
                         <span className="file-description">
                             {fileName || `Není zvolen žádný soubor (max. ${maxSizeMB}MB, .jpg, .png, .webp)`}
                         </span>
                     </div>
                 ))}
             </div>
+
 
             <div className="form-group" style={{ marginTop: '20px' }}>
                 <button type="submit" onClick={handleSubmit}> Odeslat</button>
