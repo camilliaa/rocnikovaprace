@@ -32,7 +32,7 @@
 }
 
 .contact .desktop {
-    display: visible;
+    display: block;
 }
 
 .contact iframe{
@@ -48,7 +48,7 @@
     }
 
     .contact .phone {
-        display: visible;
+        display: block;
     }
     .contact .desktop {
         display: none;
