@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Alert from '@/components/Alert/Alert';
 import './booking.css';
+import TattooPositioner from '@/components/TattooPositioner/TattooPositioner';
 
 export default function Booking() {
     // proměnné pro hodnoty z formulářů
@@ -11,9 +12,15 @@ export default function Booking() {
     const [placement, setPlacement] = useState('');
     const [description, setDescription] = useState("");
 
+    const [tattooPosition, setTattooPosition] = useState({ x: 0, y: 0 });
+    const [tattooScale, setTattooScale] = useState(1);
+    const [tattooRotation, setTattooRotation] = useState(0);
+
     // proměnné pro soubory
-    const [placementFile, setPlacementFile] = useState(null);
+    const [placementFile, setPlacementFile] = useState<string | null>(null);
+    const [placementImageForPositioning, setPlacementImageForPositioning] = useState<string | null>(null);
     const [referenceFiles, setReferenceFiles] = useState([null, null, null, null]);
+    const [tattooImageForPositioning, setTattooImageForPositioning] = useState<string | null>(null);
 
     // proměnné pro zobrazení alertu
     const [showAlert, setShowAlert] = useState(false);
@@ -57,6 +64,11 @@ export default function Booking() {
             const filePath = await uploadFile(file);
             console.log('asisi', filePath);
             setPlacementFile(filePath);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                setPlacementImageForPositioning(event.target!.result! as string);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -73,6 +85,12 @@ export default function Booking() {
                         return newFiles;
                     });
                 }
+
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    setTattooImageForPositioning(event.target!.result! as string);
+                };
+                reader.readAsDataURL(file);
             } catch (error) {
                 console.error("Chyba při uploadu souboru", error);
             }
@@ -291,10 +309,23 @@ export default function Booking() {
                 ))}
             </div>
 
+            {placementImageForPositioning && tattooImageForPositioning && (
+                <TattooPositioner
+                    position={tattooPosition}
+                    setPosition={setTattooPosition}
+                    baseImage={placementImageForPositioning}
+                    tattooImage={tattooImageForPositioning}
+                    scale={tattooScale}
+                    setScale={setTattooScale}
+                    rotation={tattooRotation}
+                    setRotation={setTattooRotation}
+                />
+            )}
 
             <div className="form-group" style={{ marginTop: '20px' }}>
                 <button type="submit" onClick={handleSubmit}> Odeslat</button>
             </div>
+
         </div>
     );
 }

@@ -1,7 +1,8 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-import './header.css'; 
+import './header.css';
+import { SignedOut, SignInButton, SignUpButton, SignOutButton, SignedIn, UserButton } from '@clerk/nextjs';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,8 @@ export default function Header() {
       <div className="logo">
         <Link href="/"><img src="/img/logoW.png" alt="Logo" /></Link>
       </div>
-      
+
+      {/* Hamburger menu */}
       <div className="hamburger" onClick={toggleMenu}>
         {isOpen ? (
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +37,25 @@ export default function Header() {
         <li><Link href="/gallery" onClick={toggleMenu}>Galerie</Link></li>
         <li><Link href="/booking" onClick={toggleMenu}>Booking</Link></li>
         <li><Link href="/contact" onClick={toggleMenu}>Kontakt</Link></li>
-        <li><Link href="/login" onClick={toggleMenu}>Přihlášení</Link></li>
+        <SignedOut>
+        <li>
+          <SignInButton>
+            <a className="clerk-button">Přihlášení</a>
+          </SignInButton>
+        </li>
+        <li>
+          <SignUpButton>
+            <a className="clerk-button">Registrace</a>
+          </SignUpButton>
+          </li>
+        </SignedOut>
+        <SignedIn>
+          <li>
+          <SignOutButton>
+            <a className="clerk-button">Odhlásit se</a>
+          </SignOutButton>
+          </li>
+        </SignedIn>
       </ul>
     </nav>
   );

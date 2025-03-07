@@ -8,7 +8,7 @@ nav {
     width: 100%;
     top: 0px;
     position: fixed;
-    height: 50px;
+    height: var(--navbar-height);
 }
 
 nav ul {
@@ -87,6 +87,11 @@ svg{
     height: auto;
 }
 
+.clerk-button{
+    cursor: pointer;
+}
+
+
 /* phone  */
 @media screen and (max-width: 768px) {
     *{
@@ -126,6 +131,10 @@ svg{
     }
 
     nav ul.active li a {
+        font-size: 20px;
+    }
+
+    nav ul.active .clerk-button {
         font-size: 20px;
     }
 }

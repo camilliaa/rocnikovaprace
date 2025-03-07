@@ -3,7 +3,7 @@
 .booking {
     max-width: 70%;
     margin: 0 auto;
-    padding-top: 50px;
+    padding-top: var(--navbar-height);
     color: white;
     margin-bottom: 50px;
 }
@@ -21,7 +21,7 @@
 .booking label {
     color: #cccccc;
     font-size: 20px;
-    font-family: "Quicksand", serif;
+    font-family: var(--font-quicksand), serif;
     text-align: center; 
     margin: 0;
     padding: 2px;
