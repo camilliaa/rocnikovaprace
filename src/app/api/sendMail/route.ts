@@ -2,6 +2,12 @@ import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
 
+interface Attachment {
+    filename: string;
+    path: string;
+    cid: string;
+}
+
 export async function POST(req) {
     const { name, email, phone, placement, description, placementFile, referenceFiles } = await req.json();
 
@@ -22,23 +28,25 @@ export async function POST(req) {
             },
         });
 
-        const attachments = [];
+        const attachments: Attachment[] = []; 
+
         if (placementFile) {
             const filePath = path.join(process.cwd(), 'public', 'tmp', placementFile);
             attachments.push({
-                filename: placementFile.split('/').pop(),
+                filename: placementFile.split('/').pop() || '',
                 path: filePath,
-                cid: 'placement',
+                cid: 'placement'
             });
         }
 
         if (referenceFiles) {
-            referenceFiles.forEach((file) => {
+            referenceFiles.forEach((file, index) => {
                 if (file) {
                     const filePath = path.join(process.cwd(), 'public', 'tmp', file);
                     attachments.push({
                         filename: file.split('/').pop() + '.png',
                         path: filePath,
+                        cid: `reference${index}` 
                     });
                 }
             });
