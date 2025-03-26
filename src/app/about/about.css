@@ -4,28 +4,24 @@
     width: 70%;
     margin: 0 auto;
     padding-top: var(--navbar-height);
-}
 
-.about h1 {
-    color: #ffffff;
-    font-size: 40px;
-    text-align: center;
-}
+    & h1 {
+        color: #ffffff;
+        font-size: 40px;
+        text-align: center;
+        font-family: var(--font-splash), cursive;
+    }
 
-.about p {
-    color: #cccccc;
-    font-size: 20px;
-    font-family: var(--font-quicksand), serif;
-    text-align: center; 
-    margin: 0;
-    padding: 2px;
-}
+    & p {
+        color: #cccccc;
+        font-size: 20px;
+        font-family: var(--font-quicksand), sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 2px;
+    }
 
-
-
-/* phony */
-@media screen and (max-width: 768px) {
-    .about{
+    @media screen and (max-width: 768px) {
         width: 95%;
     }
 }

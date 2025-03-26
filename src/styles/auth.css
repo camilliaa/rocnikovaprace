@@ -1,0 +1,141 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #000000;
+
+    & .cl-rootBox {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    & .cl-card {
+        background: #1a1a1a !important;
+        padding: 2rem !important;
+        border-radius: 8px !important;
+        color: white !important;
+        box-shadow: 0 0 20px rgba(88, 0, 202, 0.2) !important;
+    }
+
+    & .cl-headerTitle {
+        color: white !important;
+        font-size: 24px !important;
+        text-align: center !important;
+        margin-bottom: 1rem !important;
+        font-family: var(--font-splash), cursive !important;
+    }
+
+    & .cl-headerSubtitle {
+        color: #cccccc !important;
+        text-align: center !important;
+        font-family: var(--font-quicksand), sans-serif !important;
+    }
+
+    & .cl-formFieldInput {
+        width: 100% !important;
+        background: #333 !important;
+        border: 1px solid #555 !important;
+        color: white !important;
+        padding: 10px !important;
+        border-radius: 4px !important;
+        font-family: var(--font-quicksand), sans-serif !important;
+
+        &[data-invalid] {
+            border-color: #ff4444 !important;
+        }
+
+        &:focus {
+            border-color: #5800ca !important;
+            outline: none !important;
+            box-shadow: 0 0 5px rgba(88, 0, 202, 0.5) !important;
+        }
+    }
+
+    & .cl-formFieldLabel {
+        color: #cccccc !important;
+        margin-bottom: 5px !important;
+        font-weight: 500 !important;
+        font-family: var(--font-quicksand), sans-serif !important;
+    }
+
+    & .cl-formButtonPrimary {
+        background: #5800ca !important;
+        color: white !important;
+        width: 100% !important;
+        padding: 12px 20px !important;
+        border: none !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        font-size: 16px !important;
+        transition: all 0.3s ease !important;
+        font-weight: 600 !important;
+        font-family: var(--font-quicksand), sans-serif !important;
+
+        &:hover {
+            background: #4600a1 !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 12px rgba(88, 0, 202, 0.3) !important;
+        }
+    }
+
+    & .cl-socialButton {
+        background: #333 !important;
+        border: 1px solid #555 !important;
+        color: white !important;
+        transition: all 0.3s ease !important;
+
+        &:hover {
+            background: #444 !important;
+            border-color: #666 !important;
+        }
+    }
+
+    & .cl-divider {
+        background: #555 !important;
+    }
+
+    & .cl-dividerText {
+        color: #999 !important;
+        background: #1a1a1a !important;
+    }
+
+    & .cl-footer {
+        margin-top: 1.5rem !important;
+        text-align: center !important;
+        color: #cccccc !important;
+    }
+
+    & .cl-footerAction {
+        color: #5800ca !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
+
+        &:hover {
+            color: #4600a1 !important;
+            text-shadow: 0 0 10px rgba(88, 0, 202, 0.5) !important;
+        }
+    }
+
+    & .cl-showPasswordButton {
+        color: #cccccc !important;
+
+        &:hover {
+            color: white !important;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .auth-container {
+        & .cl-card {
+            padding: 1rem !important;
+        }
+
+        & .cl-rootBox {
+            width: 95%;
+        }
+    }
+}

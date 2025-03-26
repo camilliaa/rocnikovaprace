@@ -2,6 +2,7 @@ import './globals.css';
 import Header from '@/components/Header/Header';
 import './fonts';
 import { ClerkProvider } from '@clerk/nextjs';
+import { quicksand, splash } from './fonts';
 
 export const metadata = {
   title: 'Rezotattoo',
@@ -13,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
-      <html lang="cs">
+      <html lang="cs" className={`${quicksand.variable} ${splash.variable}`}>
         <head>
           <link rel="icon" href="/img/logoW.png" />
           <meta name="theme-color" content="#000000" />
